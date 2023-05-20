@@ -72,8 +72,8 @@ function App() {
         .checkToken(jwt)
         .then((res) => {
           setIsLoggedIn(true);
-          setEmail(res.data.email);
-          console.log(res.data);
+          setEmail(res.email);
+          console.log(res.email);
         })
         .catch((err) => {
           console.log(err);
