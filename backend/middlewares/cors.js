@@ -4,21 +4,15 @@ const CORS_ALLOWED = [
   'https://api.heyRene.nomoredomains.monster',
 ];
 
-const handleCors = (req, res, next) => {
-  const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
-  const { method } = req;
-  const requestHeaders = req.headers['access-control-request-headers'];
-
-  if (CORS_ALLOWED.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', '*');
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-    return res.end();
-  }
-
-  return next();
+const handleCors = {
+  credentials: true,
+  origin: function checkCorsList(origin, callback) {
+    if (CORS_ALLOWED.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
 };
 
 module.exports = { handleCors };
