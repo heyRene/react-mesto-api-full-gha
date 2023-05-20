@@ -27,14 +27,15 @@ export function authorize(email, password) {
     body: JSON.stringify({ email, password }),
   }).then(checkResponse);
 }
-export function checkToken(jwt) {
+export function checkToken(token) {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${jwt}`,
+      Authorization: `Bearer ${token}`,
     },
   })
-    .then(checkResponse);
+    .then(checkResponse)
+    .then(data => data);
 }
