@@ -25,7 +25,7 @@ function Card(props) {
   }
 
   return (
-    <section className="element">
+    <section className="element" key={props.card._id}>
       <img
         className="element__image"
         onClick={handleClick}
