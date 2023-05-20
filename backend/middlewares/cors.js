@@ -1,7 +1,3 @@
-const CORS_ALLOWED = [
-  'https://api.heyRene.nomoredomains.monster',
-  'https://heyRene.nomoredomains.monster',
-];
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
 const cors = (req, res, next) => {
@@ -16,7 +12,7 @@ const cors = (req, res, next) => {
   }
   res.header('Access-Control-Allow-Origin', '*');
 
-  next();
+  return next();
 };
 
 module.exports = { cors };
