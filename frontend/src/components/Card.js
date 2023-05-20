@@ -25,7 +25,7 @@ function Card(props) {
   }
 
   return (
-    <section className="element" key={props.card._id}>
+    <li className="element" key={props.card._id}>
       <img
         className="element__image"
         onClick={handleClick}
@@ -52,7 +52,7 @@ function Card(props) {
           />
         )}
       </div>
-    </section>
+    </li>
   );
 }
 export default Card;
