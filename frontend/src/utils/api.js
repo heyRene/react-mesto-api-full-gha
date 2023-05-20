@@ -87,7 +87,7 @@ export class Api {
   export default new Api({
     url: "https://api.heyRene.nomoredomains.monster",
     headers: {
-      authorization: `Bearer ${localStorage.getItem('jwt')}"1d6208e1-8c1d-4a2d-962a-6731b1539398"`,
+      authorization: `Bearer ${localStorage.getItem('jwt')}`,
       "Content-Type": "application/json",
     },
   });
