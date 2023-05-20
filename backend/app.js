@@ -17,8 +17,8 @@ const app = express();
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 
 app.use(requestLogger);
-
-app.use(cors(handleCors));
+app.use(cors());
+app.use(handleCors);
 app.use(limiter);
 app.use(helmet());
 app.use(express.json());
