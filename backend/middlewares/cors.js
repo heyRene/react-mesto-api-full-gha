@@ -1,5 +1,4 @@
 const CORS_ALLOWED = [
-  'http://localhost:3000',
   'https://api.heyRene.nomoredomains.monster',
   'https://heyRene.nomoredomains.monster',
 ];
