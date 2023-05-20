@@ -18,13 +18,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 
 app.use(requestLogger);
 
-app.options('*', cors({
-  origin: CORS_ALLOWED,
-  credentials: true,
-}));
 app.use(cors({
-  origin: CORS_ALLOWED,
   credentials: true,
+  origin: CORS_ALLOWED,
 }));
 app.use(limiter);
 app.use(helmet());
