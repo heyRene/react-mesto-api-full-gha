@@ -63,6 +63,7 @@ function App() {
         console.log(`user: ${currentUser}`);
       })
       .catch((err) => {
+
         console.log(err);
       });
   }, [isLoggedIn]);
