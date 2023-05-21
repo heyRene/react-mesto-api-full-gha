@@ -58,7 +58,7 @@ function App() {
       .getUserInfo()
       .then((data) => {
         setCurrentUser(data);
-        console.log(data);
+        console.log(currentUser);
       })
       .catch((err) => {
         console.log(err);
