@@ -52,7 +52,6 @@ const setLike = (req, res, next) => {
   const { cardId } = req.params;
   Card.findByIdAndUpdate(cardId, { $addToSet: { likes: owner } }, { new: true })
     .orFail(new NotFoundError('Карточка c указанным _id не найдена'))
-    .populate(['owner', 'likes'])
     .then((card) => {
       res.send(card);
     })
