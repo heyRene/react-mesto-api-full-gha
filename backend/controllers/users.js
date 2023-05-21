@@ -87,7 +87,7 @@ const updateUserProfile = (req, res, data, next) => {
   User.findByIdAndUpdate(userId, data, { new: true, runValidators: true })
     .orFail(new NotFoundError('Пользователь по указанному _id не найден'))
     .then((user) => {
-      res.send({ user });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
