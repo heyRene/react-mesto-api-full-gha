@@ -3,7 +3,7 @@ import { currentUserContext } from "../contexts/CurrentUserContext.js";
 
 function Card(props) {
   const currentUser = useContext(currentUserContext);
-  const isOwn = props.card.owner  === currentUser._id;
+  const isOwn = (props.card.owner._id || props.card.owner) === currentUser._id;
   const cardDeleteButtonClassName = `element__delete ${
     isOwn ? "element__delete_active" : ""
   }`;
@@ -43,12 +43,14 @@ function Card(props) {
           ></button>
           <p className="element__sum-like">{props.card.likes.length}</p>
         </div>
+        {isOwn && (
           <button
             className={cardDeleteButtonClassName}
             onClick={handleDeleteClick}
             type="button"
             aria-label="удалить"
           />
+        )}
       </div>
     </li>
   );
