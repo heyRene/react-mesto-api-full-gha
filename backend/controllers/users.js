@@ -16,7 +16,7 @@ const getUsers = (req, res, next) => {
 };
 
 const getUserId = (req, res, next) => {
-  const userId = req.params.userId ? req.params.userId : req.user._id;
+  const { userId } = req.params.userId;
   User.findById(userId)
     .orFail(new NotFoundError('Пользователь по указанному _id не найден'))
     .then((user) => {
