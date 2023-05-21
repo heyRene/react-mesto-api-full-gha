@@ -47,7 +47,9 @@ const deleteCard = (req, res, next) => {
 };
 
 const setLike = (req, res, next) => {
-  Card.findByIdAndUpdate(req.params.cardId, { $addToSet: { likes: req.user._id } }, { new: true })
+  const owner = req.user._id;
+  const { cardId } = req.params;
+  Card.findByIdAndUpdate(cardId, { $addToSet: { likes: owner } }, { new: true })
     .orFail(new NotFoundError('Карточка c указанным _id не найдена'))
     .then((card) => {
       res.send(card);
@@ -62,7 +64,9 @@ const setLike = (req, res, next) => {
 };
 
 const deleteLike = (req, res, next) => {
-  Card.findByIdAndUpdate(req.params.cardId, { $pull: { likes: req.user._id } }, { new: true })
+  const owner = req.user._id;
+  const { cardId } = req.params;
+  Card.findByIdAndUpdate(cardId, { $pull: { likes: owner } }, { new: true })
     .orFail(new NotFoundError('Карточка c указанным _id не найдена'))
     .then((card) => {
       res.send(card);
