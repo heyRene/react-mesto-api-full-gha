@@ -38,6 +38,5 @@ export function checkToken(token) {
       Authorization: `Bearer ${token}`,
     },
   })
-  .then((res) => checkResponse(res))
-  .then(data => data);
+  .then((res) => checkResponse(res));
 }
