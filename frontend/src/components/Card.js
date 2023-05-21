@@ -3,7 +3,7 @@ import { currentUserContext } from "../contexts/CurrentUserContext.js";
 
 function Card(props) {
   const currentUser = useContext(currentUserContext);
-  const isOwn = (props.card.owner._id || props.card.owner) === currentUser._id;
+  const isOwn = props.card.owner === currentUser._id;
   const cardDeleteButtonClassName = `element__delete ${
     isOwn ? "element__delete_active" : ""
   }`;
