@@ -13,12 +13,17 @@ router.get('/crash-test', () => {
   }, 0);
 });
 
+router.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 router.use('/signup', signupRouter);
 router.use('/signin', signinRouter);
 
 router.use('/users', auth, usersRouter);
 router.use('/cards', auth, cardsRouter);
-router.use('*', (req, res, next) => {
+router.use('*', auth, (req, res, next) => {
   next(new NotFoundError(`Запрашиваемый ресурс по адресу '${req.path}' не найден`));
 });
 
