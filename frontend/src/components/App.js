@@ -45,15 +45,17 @@ function App() {
 
 
   useEffect(() => {
+    isLoggedIn &&
     api
       .getInitialCards()
       .then((data) => {
         setCards(data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
+    isLoggedIn &&
     api
       .getUserInfo()
       .then((data) => {
@@ -63,7 +65,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
       handleTokenCheck();
