@@ -100,6 +100,7 @@ function App() {
           localStorage.setItem("jwt", data.token);
           navigate("/", { replace: true });
           console.log(isLoggedIn);
+          console.log(data.token);
         }
       })
       .catch((err) => {
