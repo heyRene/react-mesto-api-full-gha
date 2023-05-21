@@ -65,7 +65,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    handleTokenCheck();
+      handleTokenCheck();
   }, []);
 
   useEffect(() => {
