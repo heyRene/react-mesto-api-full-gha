@@ -43,14 +43,12 @@ function Card(props) {
           ></button>
           <p className="element__sum-like">{props.card.likes.length}</p>
         </div>
-        {isOwn && (
           <button
             className={cardDeleteButtonClassName}
             onClick={handleDeleteClick}
             type="button"
             aria-label="удалить"
           />
-        )}
       </div>
     </li>
   );
