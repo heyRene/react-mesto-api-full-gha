@@ -7,7 +7,7 @@ import Register from "./Register";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
 import ImagePopup from "./ImagePopup.js";
-import api from "../utils/api";
+import Api from "../utils/api";
 import { currentUserContext } from "../contexts/CurrentUserContext.js";
 import EditProfilePopup from "./EditProfilePopup.js";
 import EditAvatarPopup from "./EditAvatarPopup.js";
@@ -34,6 +34,15 @@ function App() {
   const [isInfoTooltipResult, setInfoTooltipResult] = useState(false);
 
   const navigate = useNavigate();
+
+  const api = new Api({
+    url: "https://api.heyrene.nomoredomains.monster",
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      "Content-Type": "application/json",
+    },
+  });
+
 
   useEffect(() => {
     api

@@ -1,4 +1,4 @@
-export class Api {
+export default class Api {
     constructor(options) {
       this._headers = options.headers;
       this._url = options.url;
@@ -84,10 +84,3 @@ export class Api {
     }
   }
   
-  export default new Api({
-    url: "https://api.heyrene.nomoredomains.monster",
-    headers: {
-      authorization: `Bearer ${localStorage.getItem('jwt')}`,
-      "Content-Type": "application/json",
-    },
-  });
