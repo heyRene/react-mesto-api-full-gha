@@ -13,7 +13,8 @@ const getCards = (req, res, next) => {
 
 const createCard = (req, res, next) => {
   const { name, link } = req.body;
-  Card.create({ name, link, owner: req.user._id })
+  const { _id } = req.user;
+  Card.create({ name, link, owner: _id })
     .then((card) => {
       res.send(card);
     })
@@ -51,6 +52,7 @@ const setLike = (req, res, next) => {
   const { cardId } = req.params;
   Card.findByIdAndUpdate(cardId, { $addToSet: { likes: owner } }, { new: true })
     .orFail(new NotFoundError('Карточка c указанным _id не найдена'))
+    .populate(['owner', 'likes'])
     .then((card) => {
       res.send(card);
     })
