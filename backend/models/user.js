@@ -43,22 +43,22 @@ const userSchema = new mongoose.Schema(
   {
     versionKey: false,
     // statics: {
-    //   findUserByCredentials(email, password) {
+    //   async findUserByCredentials(email, password) {
     //     return this.findOne({ email })
     //       .select('+password')
     //       .orFail(new UnauthorizedError('Пользователь с таким email не найден'))
-    //       .then((user) => bcrypt.compare(password, user.password)
+    //       .then((user) =>
+    //       const isPasswordMatch = await bcrypt.compare(password, user.password)
     //         .then((matched) => {
     //           if (!matched) {
     //             return Promise.reject(new UnauthorizedError('Неправильные почта или пароль'));
     //           }
     //           return user;
     //         }));
-    //   },
-    // },
   },
 );
 
+// userSchema.statics.findUserByCredentials = findUserByCredentials;
 userSchema.methods.toJSON = function noShowPassword() {
   const obj = this.toObject();
   delete obj.password;

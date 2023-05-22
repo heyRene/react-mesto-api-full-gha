@@ -39,21 +39,30 @@ const getCurrentUser = (req, res, next) => {
     })
     .catch(next);
 };
-// спасибо!!
+
 const login = (req, res, next) => {
   const { email, password } = req.body;
   User.findOne({ email })
     .select('+password')
-    .orFail(new UnauthorizedError('Пользователь по указанному email не найден'))
-    .then((user) => {
-      bcrypt.compare(password, user.password)
-        .then(() => {
-          const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
-          return res.send({ token })
-            .catch(() => next(new UnauthorizedError('Неправильные почта или пароль')));
-        });
+    .orFail(() => {
+      throw new UnauthorizedError('Пользователь по указанному email не найден');
     })
-    .catch(next);
+    .then(async (user) => {
+      const isPasswordCorrect = await bcrypt.compare(password, user.password);
+      if (isPasswordCorrect) {
+        const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
+        res.send({ token });
+      } else {
+        throw new UnauthorizedError('Неправильные почта или пароль');
+      }
+    })
+    .catch((err) => {
+      if (err instanceof UnauthorizedError) {
+        next(err);
+      } else {
+        next(new Error('Ошибка при аутентификации пользователя'));
+      }
+    });
 };
 
 const createUser = (req, res, next) => {
