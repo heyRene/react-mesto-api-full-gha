@@ -39,7 +39,7 @@ const getCurrentUser = (req, res, next) => {
     })
     .catch(next);
 };
-
+// спасибо!!
 const login = (req, res, next) => {
   const { email, password } = req.body;
   User.findOne({ email })
@@ -47,12 +47,10 @@ const login = (req, res, next) => {
     .orFail(new UnauthorizedError('Пользователь по указанному email не найден'))
     .then((user) => {
       bcrypt.compare(password, user.password)
-        .then((matched) => {
-          if (!matched) {
-            return next(new UnauthorizedError('Неправильные почта или пароль'));
-          }
+        .then(() => {
           const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
-          return res.send({ token });
+          return res.send({ token })
+            .catch(() => next(new UnauthorizedError('Неправильные почта или пароль')));
         });
     })
     .catch(next);
