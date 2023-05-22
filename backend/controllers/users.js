@@ -5,7 +5,7 @@ const User = require('../models/user');
 const NotFoundError = require('../errors/NotFoundError');
 const UserExistError = require('../errors/UserExistError');
 const ValidationError = require('../errors/ValidationError');
-// const UnauthorizedError = require('../errors/UnauthorizedError');
+const UnauthorizedError = require('../errors/UnauthorizedError');
 
 const getUsers = (req, res, next) => {
   User.find({})
@@ -42,10 +42,18 @@ const getCurrentUser = (req, res, next) => {
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
-  User.findUserByCredentials(email, password)
+  User.findOne({ email })
+    .select('+password')
+    .orFail(new UnauthorizedError('Пользователь по указанному email не найден'))
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
-      res.send({ token });
+      bcrypt.compare(password, user.password)
+        .then((matched) => {
+          if (!matched) {
+            next(new UnauthorizedError('Неправильные почта или пароль'));
+          }
+          const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
+          return res.send({ token });
+        });
     })
     .catch(next);
 };
