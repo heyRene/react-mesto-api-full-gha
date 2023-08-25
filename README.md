@@ -1,5 +1,5 @@
-[![Tests](https://github.com/yandex-praktikum/react-mesto-api-full-gha/actions/workflows/tests.yml/badge.svg)](https://github.com/yandex-praktikum/react-mesto-api-full-gha/actions/workflows/tests.yml)
-# react-mesto-api-full
+
+# Проект Mesto: backend + frontend
 Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями. 
   
 # Основной функционал
@@ -26,10 +26,3 @@ express.js,
 mongoose,
 celebrate,
 
-## Ссылки на проект
-
-IP-адрес 158.160.41.247
-
-Frontend [https://heyrene.nomoredomains.monster/]
-
-Backend [https://api.heyrene.nomoredomains.monster/]
